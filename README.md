@@ -1,4 +1,5 @@
-# weapp-java-tunnel-demo
+# 微信小程序信道服务器DEMO
+##介绍
 This is a demo of tunnel server for Weapp. It is ABLE to replace the original tunnel server provided by Tencent. So you can deploy this demo on your own server without limit of Tencent cloud and do server maintenance by your self.<br>
 这是一个微信小程序的信道服务器demo,你可以将它部署到自己的服务器中，不再受腾讯云的限制并可以自行维护。
 

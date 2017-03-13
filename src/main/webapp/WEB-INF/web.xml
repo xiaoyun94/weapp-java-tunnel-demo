@@ -1,0 +1,31 @@
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <!-- 配置DispatcherServlet -->
+  <servlet>
+    <servlet-name>springDispatcherServlet</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+    <!-- 配置DispatcherServlet的一个初始化参数，作用是配置SpringMVC配置文件的位置和名称 -->
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <!-- classpath表示类路径下的spring-mvc.xml文件 -->
+      <param-value>/WEB-INF/spring.xml</param-value>
+    </init-param>
+
+
+    <!-- load-on-startup 表示在web应用启动时，即加载该DispatcherServlet，而不是等到首次请求再中载 -->
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>springDispatcherServlet</servlet-name>
+    <!-- 可以应答所有请求，也就是将所有的请求都交给Spring的DispatcherServlet来处理 -->
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+
+</web-app>

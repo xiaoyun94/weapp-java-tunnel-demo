@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="weapptunnel:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="weapptunnel.war">
+      <element id="artifact" artifact-name="weapptunnel:war exploded" />
+    </root>
+  </artifact>
+</component>

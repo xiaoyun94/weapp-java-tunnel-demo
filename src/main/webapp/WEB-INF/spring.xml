@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+
+    <mvc:annotation-driven />
+
+
+    <!-- 设置Controler的packet目录，只有该目录下的Controler才会被映射 -->
+    <context:component-scan base-package="cn.bigforce.weapptunnel.bean"/>
+    <context:component-scan base-package="cn.bigforce.weapptunnel.controller"/>
+
+
+    <!-- 配置视图解析器：将控制器方法返回值解析为实际物理视图 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 假设控制器返回 success 字符串，该视图解析器将自动进行装配，具体的视图将为：
+            prefix + 返回的字符串 + suffix = /WEB-INF/views/success.jsp
+         -->
+        <!-- prefix表示前缀 -->
+        <property name="prefix" value="/WEB-INF/views/"></property>
+        <!-- suffix表示后缀 -->
+        <property name="suffix" value=".jsp"></property>
+
+    </bean>
+
+    <bean id="websocket" class="cn.bigforce.weapptunnel.ws.SpringWebSocketHandler"/>
+
+    <websocket:handlers allowed-origins="*">
+        <websocket:mapping path="/websocket" handler="websocket"/>
+        <websocket:handshake-interceptors>
+            <bean class="cn.bigforce.weapptunnel.ws.SpringWebSocketHandlerInterceptor"/>
+        </websocket:handshake-interceptors>
+    </websocket:handlers>
+
+    <bean class="org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean">
+        <property name="maxSessionIdleTimeout" value="60000"/>
+        <!--<property name="maxTextMessageBufferSize" value="8192"/>-->
+        <!--<property name="maxBinaryMessageBufferSize" value="8192"/>-->
+        <!--<property name="asyncSendTimeout" value="5000"/>-->
+    </bean>
+
+
+</beans>

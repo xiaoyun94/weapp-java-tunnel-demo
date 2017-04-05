@@ -16,7 +16,6 @@ import java.util.Map;
 
 /**
  * WebSocket拦截器
- * @author WANG
  *
  */
 public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInterceptor {

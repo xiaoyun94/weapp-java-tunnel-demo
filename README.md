@@ -16,7 +16,7 @@ This is a demo of tunnel server for Weapp. It is ABLE to replace the original tu
 ## 必要设置
 在2017-4-20日之后的版本中，将设置文件和程序进行隔离。开发者可以直接到target目录下下载对应的war包部署到Tomcat等服务器上<br>
 本项目必须进行设置才能使用！<br>
-设置文件就是腾讯云SDK配置文件，即/etc/qcloud/sdk.config，如果不存在这个文件请自行创建，文本为JSON格式，建议UTF-8编码！<br>
+设置文件就是腾讯云SDK配置文件，即/etc/qcloud/sdk.config，如果不存在这个文件请自行创建，设置的键值对为JSON格式，建议UTF-8编码！<br>
 在这个文件中添加如下格式的KV键值<br>
 `"BigforceTunnelHostLocation" : "www.xxx.com/ssr",`
 这个BigforceTunnelHostLocation对应的值是你的信道服务器的地址<br>

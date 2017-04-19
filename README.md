@@ -3,6 +3,10 @@
 This is a demo of tunnel server for Weapp. It is ABLE to replace the original tunnel server provided by Tencent. So you can deploy this demo on your own server without limit of Tencent cloud and do server maintenance by your self.<br>
 这是一个微信小程序的信道服务器demo,你可以将它部署到自己的服务器中，不再受腾讯云的限制并可以自行维护。
 
+## 重要说明
+本程序是本人研究小程序业务服务器JAVA SDK制作的，所以只能保证和JAVA业务服务器正常通信。
+目前已知与PHP业务服务器不兼容，因为PHP SDK有一些区别，包括请求时缺少dataEncode字段、返回时需要signature字段（java并不需要）
+
 ## 框架
 这个demo是由java语言编写，使用了spring框架下的web，message，websocket等模块，由maven控制项目依赖
 

@@ -18,7 +18,7 @@ This is a demo of tunnel server for Weapp. It is ABLE to replace the original tu
 本项目必须进行设置才能使用！！！<br>
 设置文件就是腾讯云SDK配置文件，即/etc/qcloud/sdk.config，如果不存在这个文件请自行创建，设置的键值对为JSON格式，建议UTF-8编码！<br>
 在这个文件中添加如下格式的KV键值<br>
-`"BigforceTunnelHostLocation" : "www.xxx.com/ssr",`<br>。
+`"BigforceTunnelHostLocation" : "www.xxx.com/ssr",`<br>
 这个BigforceTunnelHostLocation对应的值是你的信道服务器的地址<br>
 举个栗子,你的将这个程序打包为[ssr.war]并将其部署到tomcat下的webapps下面, 你的Tomcat对应域名为https://www.xxx.com, 你的信道服务器地址是https://www.xxx.com/ssr, 因而这里设置的值就是www.xxx.com/ssr<br>
 **不需要请求协议前缀！**<br>

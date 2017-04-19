@@ -14,18 +14,15 @@ This is a demo of tunnel server for Weapp. It is ABLE to replace the original tu
 推荐在Linux, Apache Tomcat 7.0+, JDK1.7+上运行
 
 ## 必要设置
-在2017-4-20日之后的版本中，将设置文件和程序进行隔离。开发者可以直接到target目录下下载对应的war包部署到Tomcat等服务器上<br>
-本项目必须进行设置才能使用！<br>
+在2017-4-20日之后的版本中，将设置文件和程序进行隔离。开发者可以直接到target目录下下载对应的war包部署到Tomcat等服务器上。<br>
+本项目必须进行设置才能使用！！！<br>
 设置文件就是腾讯云SDK配置文件，即/etc/qcloud/sdk.config，如果不存在这个文件请自行创建，设置的键值对为JSON格式，建议UTF-8编码！<br>
 在这个文件中添加如下格式的KV键值<br>
-`"BigforceTunnelHostLocation" : "www.xxx.com/ssr",`
+`"BigforceTunnelHostLocation" : "www.xxx.com/ssr",`<br>。
 这个BigforceTunnelHostLocation对应的值是你的信道服务器的地址<br>
-举个栗子,你的将这个程序打包为[ssr.war]并将其部署到tomcat下的webapps下面<br>
-你的Tomcat对应域名为https://www.xxx.com<br>
-你的信道服务器地址是https://www.xxx.com/ssr<br>
-因而这里设置的值就是www.xxx.com/ssr<br>
-不需要请求协议前缀！<br>
-这里必须是外网连接地址！这里的设置关系到websocket的URL生成和链接，如果使用内网，微信小程序无法访问到你的信道服务器<br>
+举个栗子,你的将这个程序打包为[ssr.war]并将其部署到tomcat下的webapps下面, 你的Tomcat对应域名为https://www.xxx.com, 你的信道服务器地址是https://www.xxx.com/ssr, 因而这里设置的值就是www.xxx.com/ssr<br>
+**不需要请求协议前缀！**<br>
+**必须是外网连接地址！**这里的设置关系到websocket的URL生成和链接，如果使用内网，微信小程序无法访问到你的信道服务器<br>
 
 ## 其他设置
 如果你想设置websocket的IDLE time，可以到spring.xml下设置<br>

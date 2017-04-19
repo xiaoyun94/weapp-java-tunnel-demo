@@ -29,7 +29,7 @@ public class WebSocketController {
         if(!isSignatureValid(request.getSignature(), request.getData(), request.getTcKey()))
             return new ResponseObject(1,"验证失败");
 
-        if("json".equals(request.getDataEncode())){
+        if(request.getDataEncode()==null||"json".equals(request.getDataEncode())){
 
             String host = TunnelConfiguration.host;
             String tunnelId = getTunnelId();
@@ -43,7 +43,10 @@ public class WebSocketController {
 
             String connectUrl = String.format("%s://%s/websocket?tunnelId=%s&tcId=%s", protocolType, host, tunnelId, request.getTcId());
             JSONObject response = new JSONObject().put("connectUrl", connectUrl).put("tunnelId",tunnelId);
-            return new ResponseObject(response.toString());
+
+            String data = response.toString();
+            String signature = Hash.sha1(data + request.getTcKey());
+            return new ResponseObject(data, signature);
         }else{
             // TODO 如果你想自定义格式的话，就补充这里
             return new ResponseObject(2, "不支持的格式");
@@ -61,7 +64,7 @@ public class WebSocketController {
         if(!isSignatureValid(request.getSignature(), request.getData(), hostConfig.getTcKey()))
             return new ResponseObject(1,"验证失败");
 
-        if("json".equals(request.getDataEncode())){
+        if(request.getDataEncode()==null||"json".equals(request.getDataEncode())){
             JSONObject json = new JSONArray(request.getData()).getJSONObject(0);
 
             /**
@@ -83,13 +86,16 @@ public class WebSocketController {
             JSONObject response = new JSONObject();
             response.put("invalidTunnelIds", invalid);
 
-            return new ResponseObject(response.toString());
+            String data = response.toString();
+            String signature = Hash.sha1(data + request.getTcKey());
+            return new ResponseObject(data, signature);
 
         }else{
             // TODO 如果你想自定义格式的话，就补充这里吧
             return new ResponseObject(2, "不支持的格式");
         }
     }
+
     private boolean isSignatureValid(String signature, String data, String tcKey){
         String temp = Hash.sha1(data+tcKey);
         System.out.print(temp);

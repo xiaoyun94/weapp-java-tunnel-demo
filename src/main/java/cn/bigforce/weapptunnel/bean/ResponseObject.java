@@ -7,10 +7,12 @@ public class ResponseObject {
     private int code;
     private String data;
     private String message;
+    private String signature;
 
-    public ResponseObject(String data) {
+    public ResponseObject(String data, String signature) {
         this.code = 0;
         this.data = data;
+        this.signature = signature;
         this.message = "ok";
     }
     public ResponseObject(int code, String message) {
@@ -40,6 +42,14 @@ public class ResponseObject {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 }
 

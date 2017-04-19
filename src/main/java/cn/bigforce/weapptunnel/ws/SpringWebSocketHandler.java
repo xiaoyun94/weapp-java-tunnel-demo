@@ -29,9 +29,7 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
      * 用来存储业务服务器地址，key为tcId（每个host唯一），value为业务服务器地址
      */
     private static final Map<String, HostConfig> businessServerMap = new HashMap();
-    static {
-        businessServerMap.put("7d1c6ff2044b71a5414db3bd9a58c346", new HostConfig("https://www.bigforce.cn/hkj4/tunnel", "7fb7d1c161b7ca52d73cce0f1d833f9f5b5ec89"));
-    }
+
 
     public SpringWebSocketHandler() {
         // TODO Auto-generated constructor stub
@@ -85,8 +83,11 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 
         String content =  message.getPayload();
+        if(content == null)
+            return;
+
         //微信客户端会发送ping的心跳包，这里需要回复pong
-        if("ping".equals(content)){
+        else if("ping".equals(content)){
             session.sendMessage(new TextMessage("pong"));
             return;
         }

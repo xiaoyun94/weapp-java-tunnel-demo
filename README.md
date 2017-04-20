@@ -11,10 +11,13 @@ This is a demo of tunnel server for Weapp. It is ABLE to replace the original tu
 这个demo是由java语言编写，使用了spring框架下的web，message，websocket等模块，由maven控制项目依赖
 
 ## 推荐环境
-推荐在Linux, Apache Tomcat 7.0+, JDK1.7+上运行
+推荐在Linux, Apache Tomcat 7.0+, JDK1.8+上运行
+
+## 部署方式
+鉴于部分开发者基本不要对信道服务器进行测试，可以直接到target目录下下载对应的war包部署到Tomcat等服务器上,但是必须使用JDK1.8+版本。<br>
+开发者也可下载源码进行修改，自行打包
 
 ## 必要设置
-在2017-4-20日之后的版本中，将设置文件和程序进行隔离。开发者可以直接到target目录下下载对应的war包部署到Tomcat等服务器上。<br>
 本项目必须进行设置才能使用！！！<br>
 设置文件就是腾讯云SDK配置文件，即/etc/qcloud/sdk.config，如果不存在这个文件请自行创建，设置的键值对为JSON格式，建议UTF-8编码！<br>
 在这个文件中添加如下格式的KV键值<br>

@@ -1,6 +1,5 @@
 # 微信小程序信道服务器DEMO
 ## 介绍
-This is a demo of tunnel server for Weapp. It is ABLE to replace the original tunnel server provided by Tencent. So you can deploy this demo on your own server without limit of Tencent cloud and do server maintenance by your self.<br>
 这是一个微信小程序的信道服务器demo,你可以将它部署到自己的服务器中，不再受腾讯云的限制并可以自行维护。
 
 ## 重要说明
@@ -14,8 +13,9 @@ This is a demo of tunnel server for Weapp. It is ABLE to replace the original tu
 推荐在Linux, Apache Tomcat 7.0+, JDK1.8+上运行
 
 ## 部署方式
-鉴于部分开发者基本不要对信道服务器进行测试，可以直接到target目录下下载对应的war包部署到Tomcat等服务器上,但是必须使用JDK1.8+版本。<br>
-如果你的Tomcat对应JVM为较低版本，可下载源码进行修改，自行打包
+鉴于部分开发者基本不需要对信道服务器进行测试，只需要信道服务，您可以直接到target目录下下载对应的war包部署到Tomcat等服务器上,但是服务器JVM必须JDK1.8+版本。<br>
+如果你的Tomcat对应JVM为较低版本，可下载源码进行修改，自行打包<br>
+如果您使用的是Nginx服务器，您需要对服务器进行设置开启协议升级，详情请自行搜索"nginx websocket"
 
 ## 必要设置
 本项目必须进行设置才能使用！！！<br>

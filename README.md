@@ -15,7 +15,7 @@ This is a demo of tunnel server for Weapp. It is ABLE to replace the original tu
 
 ## 部署方式
 鉴于部分开发者基本不要对信道服务器进行测试，可以直接到target目录下下载对应的war包部署到Tomcat等服务器上,但是必须使用JDK1.8+版本。<br>
-开发者也可下载源码进行修改，自行打包
+如果你的Tomcat对应JVM为较低版本，可下载源码进行修改，自行打包
 
 ## 必要设置
 本项目必须进行设置才能使用！！！<br>

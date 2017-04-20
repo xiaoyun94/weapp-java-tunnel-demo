@@ -25,7 +25,7 @@
 这个BigforceTunnelHostLocation对应的值是你的信道服务器的地址<br>
 举个栗子,你的将这个程序打包为[ssr.war]并将其部署到tomcat下的webapps下面, 你的Tomcat对应域名为https://www.xxx.com, 你的信道服务器地址是https://www.xxx.com/ssr, 因而这里设置的值就是www.xxx.com/ssr<br>
 **不需要请求协议前缀！**<br>
-**必须是外网连接地址！**
+**必须是域名链接地址！**，这是由HTTPS决定的
 这里的设置关系到websocket的URL生成和链接，如果使用内网，微信小程序无法访问到你的信道服务器<br>
 
 ## 其他设置

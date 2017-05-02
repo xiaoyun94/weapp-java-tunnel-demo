@@ -15,21 +15,33 @@ import org.springframework.web.socket.server.support.HttpSessionHandshakeInterce
 import java.util.Map;
 
 /**
- * Http请求拦截
+ * HTTP请求拦截操作
  */
 public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInterceptor {
+    /**
+     * HTTP请求拦截，获取参数，校验
+     * @param request
+     * @param response
+     * @param wsHandler
+     * @param attributes
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
                                    Map<String, Object> attributes) throws Exception {
-        // TODO Auto-generated method stub
+
         System.out.println("Before Handshake");
         if (request instanceof ServletServerHttpRequest) {
             System.out.println("是他的实例");
             ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
             String tunnelId = servletRequest.getServletRequest().getParameter("tunnelId");
             String tcId = servletRequest.getServletRequest().getParameter("tcId");
-            if(tunnelId == null || tcId == null)
+
+            //如果校验tunnelId是否为有效，并且tcId有效
+            if(!SpringWebSocketHandler.checkTunnelId(tunnelId) || SpringWebSocketHandler.getBusinessServer(tcId)==null)
                 return false;
+
             attributes.put("tunnelId", tunnelId);
             attributes.put("tcId", tcId);
         }

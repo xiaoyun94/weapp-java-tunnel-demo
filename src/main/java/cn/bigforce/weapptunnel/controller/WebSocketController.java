@@ -38,8 +38,9 @@ public class WebSocketController {
             String receiveUrl = json.getString("receiveUrl");
             String protocolType = json.getString("protocolType");
 
-            System.out.print("tvkey" + request.getTcKey());
+            System.out.print("tckey" + request.getTcKey());
             SpringWebSocketHandler.addBusinessServer(request.getTcId(), new HostConfig(receiveUrl, request.getTcKey()));
+            SpringWebSocketHandler.addTunnelId(tunnelId);
 
             String connectUrl = String.format("%s://%s/websocket?tunnelId=%s&tcId=%s", protocolType, host, tunnelId, request.getTcId());
             JSONObject response = new JSONObject().put("connectUrl", connectUrl).put("tunnelId",tunnelId);

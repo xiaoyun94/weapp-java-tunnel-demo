@@ -6,7 +6,9 @@ package cn.bigforce.weapptunnel.ws;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import cn.bigforce.weapptunnel.bean.HostConfig;
@@ -20,6 +22,11 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 
 public class SpringWebSocketHandler extends TextWebSocketHandler {
+
+    /**
+     * 同来储存请求但还没有建立的信道ID
+     */
+    private static final List<String> newTunnelList = new ArrayList<>();
     /**
      * 用来存储当前的seesion，key为tunnelId，value为session实例
      */
@@ -34,9 +41,34 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
     public SpringWebSocketHandler() {
         // TODO Auto-generated constructor stub
     }
+    /**
+     * 检验该信道iD是否为凭空制造
+     * @param tunnelId
+     * @return
+     */
+    public static boolean checkTunnelId(String tunnelId){
+        boolean verified = newTunnelList.contains(tunnelId);
+        newTunnelList.remove(tunnelId);
+        return verified;
+    }
+    public static void addTunnelId(String tunnelId){
+        newTunnelList.add(tunnelId);
+    }
+
+    /**
+     * 添加业务服务器
+     * @param key
+     * @param value
+     */
     public static void addBusinessServer(String key, HostConfig value){
         businessServerMap.put(key, value);
     }
+
+    /**
+     * 获得业务服务器
+     * @param key
+     * @return
+     */
     public static HostConfig getBusinessServer(String key){
         return businessServerMap.get(key);
     }

@@ -7,7 +7,7 @@
 ## 推荐环境
 - Linux
 - Apache Tomcat 7.0+
-- JDK1.8+，最低版本1.7，Websocket 是servlet 3.1的技术，jdk7才提供实现
+- JDK1.8+，最低版本不得小于1.7，Websocket 是servlet 3.1的技术，jdk7才提供实现
 
 ## 部署方式
 - 快速部署：鉴于部分开发者基本不需要对信道服务器进行测试，只需要信道服务，您可以直接到target目录下下载对应的war包部署到Tomcat等服务器上,但是服务器JVM必须JDK1.8+版本<br>

@@ -4,14 +4,13 @@
 这是提供了一个微信小程序的信道服务器demo，你可以将它部署到自己的服务器中，不再受腾讯云的限制并可以自行维护。<br>
 该项目是由java语言编写，IDE为IDEA Intellij，使用了spring框架下的web，message，websocket等模块，由maven控制项目依赖
 
-## 推荐环境
-- Linux
-- Apache Tomcat 7.0+
-- JDK1.8+
+## 最低环境
+- Apache Tomcat 7.0，从该版本才开始引入了Websocket
+- JDK1.7，Websocket 是servlet 3.1的技术，JDK7才提供实现
 
 ## 部署方式
-- 快速部署：鉴于部分开发者基本不需要对信道服务器进行测试，只需要信道服务，您可以直接到target目录下下载对应的war包部署到Tomcat等服务器上,但是服务器JVM必须JDK1.8+版本<br>
-- 自行打包部署：如果你的Tomcat对应JVM为较低版本或者你想进行代码修改，请下载源码，自行打war包再部署。但是请注意，编译最低版本不得小于1.7，Websocket 是servlet 3.1的技术，jdk7才提供实现<br>
+- 快速部署：鉴于部分开发者基本不需要对信道服务器进行测试，只需要信道服务，您可以直接到target目录下下载对应的war包部署到Tomcat等服务器上。该war包是JDK8生成的，因而服务器JVM必须1.8+版本<br>
+- 自行打包部署：如果你的Tomcat对应JVM为较低版本或者你想进行代码修改，请下载源码，自行打war包再部署。<br>
 
 ## 必要设置
 设置文件就是腾讯云SDK配置文件，Linux下即/etc/qcloud/sdk.config，选择和SDK配置文件是因为现在信道服务器和业务服务器可以在同一个服务器运行，配置文件采用同一个比较很方便。<br>

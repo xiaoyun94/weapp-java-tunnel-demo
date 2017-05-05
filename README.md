@@ -20,7 +20,7 @@
 这个BigforceTunnelHostLocation对应的值是你的信道服务器的地址<br>
 举个栗子,你的将这个程序打包为[ssr.war]并将其部署到tomcat下的webapps下面, 你的Tomcat对应域名为https://www.xxx.com, 你的信道服务器地址是https://www.xxx.com/ssr, 因而这里设置的值就是www.xxx.com/ssr<br>
 **不需要请求协议前缀！**<br>
-**必须是域名链接地址！**不能为IP地址，这是由HTTPS决定的，这里的设置关系到websocket的URL生成和连接
+**必须是域名链接地址！** 不能为IP地址，这是由HTTPS决定的，这里的设置关系到websocket的URL生成和连接
 
 ## 其他设置
 关于Websocket的设置，可以到spring.xml下设置：<br>

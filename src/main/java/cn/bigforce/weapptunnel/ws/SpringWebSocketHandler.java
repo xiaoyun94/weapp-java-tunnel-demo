@@ -51,10 +51,23 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
         newTunnelList.remove(tunnelId);
         return verified;
     }
+
+    /**
+     * 添加准入的tunnelId
+     * @param tunnelId
+     */
     public static void addTunnelId(String tunnelId){
         newTunnelList.add(tunnelId);
     }
 
+    /**
+     * 检验该信道iD是否为凭空制造
+     * @param tcId
+     * @return
+     */
+    public static boolean checkTcId(String tcId){
+        return  SpringWebSocketHandler.getBusinessServer(tcId)!=null;
+    }
     /**
      * 添加业务服务器
      * @param key
@@ -83,11 +96,15 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
         String tcId = (String) session.getAttributes().get("tcId");
 
         //将session、放入到全局静态表中
-        System.out.println("连接建立"+tunnelId+","+tcId);
+        //System.out.println("连接建立"+tunnelId+","+tcId);
+
+        if(sessionMap.containsKey(tunnelId)){
+            sessionMap.remove(tunnelId).close();
+        }
         sessionMap.put(tunnelId, session);
 
         JSONObject json = buildMessageAndRequest(tunnelId, null, "connect", tcId);
-        System.out.println("return" + json);
+        //System.out.println("建立连接" + json);
     }
 
     /**
@@ -100,9 +117,10 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
         String tunnelId = (String) session.getAttributes().get("tunnelId");
         String tcId = (String) session.getAttributes().get("tcId");
 
-        sessionMap.remove(session.getAttributes().get("tunnelId"));
+        //只删除自己的session
+        sessionMap.remove(tunnelId, session);
         JSONObject json = buildMessageAndRequest(tunnelId, null, "close", tcId);
-        System.out.println(json);
+        //System.out.println(json);
     }
 
     /**
@@ -131,7 +149,7 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
             String tcId = (String) session.getAttributes().get("tcId");
 
             JSONObject json = buildMessageAndRequest(tunnelId, content, "message", tcId);
-            System.out.println(json);
+            //System.out.println(json);
         }else{
             //TO 不支持的消息格式
         }
@@ -202,8 +220,8 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
 
         HostConfig host = businessServerMap.get(tcId);
 
-        System.out.println("host");
-        System.out.println(host == null);
+        //System.out.println("host");
+        //System.out.println(host == null);
         if(host==null)
             return null;
 
@@ -211,7 +229,7 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
         String tcKey = host.getTcKey();
         String data = json.toString();
         String signature = Hash.sha1(data+tcKey);
-        System.out.println("tckey"+tcKey);
+        //System.out.println("tckey"+tcKey);
         JSONObject request = new JSONObject();
         request.put("data", data);
         request.put("signature", signature);
@@ -227,7 +245,7 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
      * @return
      */
     private JSONObject sendMessageToBusinessServer(String tcId, JSONObject json){
-        System.out.println("sendMessageToBusinessServer4" + json);
+        //System.out.println("sendMessageToBusinessServer4" + json);
 
         HostConfig host = businessServerMap.get(tcId);
         if (host == null)

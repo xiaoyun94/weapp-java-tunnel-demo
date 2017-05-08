@@ -31,19 +31,28 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
                                    Map<String, Object> attributes) throws Exception {
 
-        System.out.println("Before Handshake");
+        //System.out.println("Before Handshake");
         if (request instanceof ServletServerHttpRequest) {
-            System.out.println("是他的实例");
+            //System.out.println("是他的实例");
             ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
             String tunnelId = servletRequest.getServletRequest().getParameter("tunnelId");
             String tcId = servletRequest.getServletRequest().getParameter("tcId");
+            String debug = servletRequest.getServletRequest().getParameter("debug");
 
-            //如果校验tunnelId是否为有效，并且tcId有效
-            if(!SpringWebSocketHandler.checkTunnelId(tunnelId) || SpringWebSocketHandler.getBusinessServer(tcId)==null)
-                return false;
+            if("debug".equals(debug)){
+                attributes.put("tunnelId", "debug");
+                attributes.put("tcId", "debug");
+            }else{
+                //如果校验tunnelId是否为有效，并且tcId有效
+                boolean tunnelIdValid = SpringWebSocketHandler.checkTunnelId(tunnelId);
+                boolean tcIdValid = SpringWebSocketHandler.checkTcId(tcId);
 
-            attributes.put("tunnelId", tunnelId);
-            attributes.put("tcId", tcId);
+                if(!tunnelIdValid || !tcIdValid )
+                    return false;
+
+                attributes.put("tunnelId", tunnelId);
+                attributes.put("tcId", tcId);
+            }
         }
         return super.beforeHandshake(request, response, wsHandler, attributes);
 

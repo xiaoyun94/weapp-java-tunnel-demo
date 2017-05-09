@@ -4,8 +4,7 @@ package cn.bigforce.weapptunnel.ws;
  * Created by LAB520 on 2017/3/10.
  */
 
-import javax.servlet.http.HttpSession;
-
+import cn.bigforce.weapptunnel.auth.Login;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
@@ -38,10 +37,16 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
             String tunnelId = servletRequest.getServletRequest().getParameter("tunnelId");
             String tcId = servletRequest.getServletRequest().getParameter("tcId");
             String debug = servletRequest.getServletRequest().getParameter("debug");
+            String auth = servletRequest.getServletRequest().getHeader("Authorization");
+
 
             if("debug".equals(debug)){
-                attributes.put("tunnelId", "debug");
-                attributes.put("tcId", "debug");
+                boolean login = Login.verifyUser(auth);
+                if(!login)
+                    return false;
+
+                attributes.put("tunnelId", tunnelId==null?"debug":tunnelId);
+                attributes.put("tcId", tcId==null?"debug":tcId);
             }else{
                 //如果校验tunnelId是否为有效，并且tcId有效
                 boolean tunnelIdValid = SpringWebSocketHandler.checkTunnelId(tunnelId);

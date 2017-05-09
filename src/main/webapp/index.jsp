@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" %>
+<%@ page language="java" import="java.util.*,java.sql.*,javax.sql.*,javax.naming.*,sun.misc.*" contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
     <script>
@@ -73,6 +73,7 @@
     body{text-align:center}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
 <h2>微信小程序信道服务器DEMO</h2>
 <table width="600" border="0" align="center">
     <tr>
@@ -86,45 +87,7 @@
 
 
 <hr color="green" width="800"/>
-<%
-    String schema = "ws";
-    if(request.getScheme().equals("https")){
-        schema = "wss";
-    }
-    String server = request.getServerName();
-    schema += "://";
-    schema += server;
-    int port = request.getServerPort();
-    if(port != 443 && port != 80){
-        schema+=":";
-        schema+=port;
-    }
-    String path = request.getContextPath();
-    schema += path;
-    schema += "/";
-    schema += "websocket?debug=debug";
-%>
-<table width="300" border="0" align="center">
-    <tr>
-        <td colspan="3">Debug for WebSocket</td>
-    <tr>
-        <td>Link</td>
-        <td><input type="text" id="link" size="40" value="<%=schema%>"></td>
-    </tr>
-    <tr>
-        <td>Message</td>
-        <td><input type="text" id="message" size="40" value="我能吞下doge而不伤身体"></td>
-    </tr>
-
-</table>
-
-<button id="connect" onclick="Connect();">Connect</button>
-<button id="send" onclick="Send();">Send</button>
-<button id="ping" onclick="Ping();">Ping</button>
-<button id="close" onclick="Close();">Close</button>
-</br>
-<textarea id="textarea" style="width:400px;height:400px;"></textarea>
-
+<button id="debug" onclick="location.href='auth';">Debug Mode</button>
 
 </body>
 </html>

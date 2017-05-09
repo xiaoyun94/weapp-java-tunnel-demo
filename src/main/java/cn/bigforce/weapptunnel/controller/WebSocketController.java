@@ -97,6 +97,7 @@ public class WebSocketController {
         }
     }
 
+
     private boolean isSignatureValid(String signature, String data, String tcKey){
         String temp = Hash.sha1(data+tcKey);
         System.out.print(temp);

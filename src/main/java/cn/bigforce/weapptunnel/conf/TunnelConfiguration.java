@@ -6,7 +6,11 @@ import org.json.JSONObject;
 import javax.servlet.ServletConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by LAB520 on 2017/3/12.
@@ -15,11 +19,19 @@ import java.io.*;
 public class TunnelConfiguration extends HttpServlet  {
     private static final long serialVersionUID = 1L;
     public static String host = null;
+    public static List<String> users = new ArrayList<>();
 
     public void init(ServletConfig config) {
         String data = readFile(getConfigFilePath());
         JSONObject json = new JSONObject(data);
         host = json.getString("BigforceTunnelHostLocation");
+
+        if(json.has("BigforceTunnelUser")){
+            String lists = json.getString("BigforceTunnelUser");
+            String[] s = lists.split(";");
+            users.addAll(Arrays.asList(s));
+        }
+
     }
     private static String getConfigFilePath() {
         String osName = System.getProperty("os.name").toLowerCase();

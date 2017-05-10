@@ -87,7 +87,7 @@
 
 
 <hr color="green" width="800"/>
-<button id="debug" onclick="location.href='auth';">Debug Mode</button>
+<button id="debug" onclick="location.href='login';">Debug Mode</button>
 
 </body>
 </html>

@@ -52,12 +52,21 @@
         }
         function Send(){
             var message = document.getElementById("message").value;
-            socket.send(message);
-            Print("SEND: " + message);
+            if(socket!=null){
+                socket.send(message);
+                Print("SEND: " + message);
+            }else{
+                Print("ERR: " + "Open socket first");
+            }
         }
         function Ping(){
-            socket.send("ping");
-            Print("SEND: " + "ping");
+            if(socket!=null){
+                socket.send("ping");
+                Print("SEND: " + "ping");
+            }else{
+                Print("ERR: " + "Open socket first");
+            }
+
         }
         function Exit(){
             session.invalidate();

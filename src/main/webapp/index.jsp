@@ -2,69 +2,6 @@
 <html>
 <head>
     <script>
-        Date.prototype.format = function(fmt)
-        { //author: meizz
-            var o = {
-                "M+" : this.getMonth()+1,                 //月份
-                "d+" : this.getDate(),                    //日
-                "h+" : this.getHours(),                   //小时
-                "m+" : this.getMinutes(),                 //分
-                "s+" : this.getSeconds(),                 //秒
-                "q+" : Math.floor((this.getMonth()+3)/3), //季度
-                "S"  : this.getMilliseconds()             //毫秒
-            };
-            if(/(y+)/.test(fmt))
-                fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
-            for(var k in o)
-                if(new RegExp("("+ k +")").test(fmt))
-                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
-            return fmt;
-        }
-
-        var socket;
-        function Connect(){
-            try{
-                var link = document.getElementById("link").value;
-                socket=new WebSocket(link);
-            }catch(e){
-                alert('error');
-                return;
-            }
-            socket.onopen = sOpen;
-            socket.onerror = sError;
-            socket.onmessage= sMessage;
-            socket.onclose= sClose;
-        }
-        function sOpen(){
-            Print('CONNECT: OK');
-        }
-        function sError(e){
-            Print("ERROR: " + e);
-        }
-        function sMessage(msg){
-            Print('RECEIVE: ' + msg.data);
-        }
-        function sClose(e){
-            Print("CLOSE: " + e.code);
-        }
-        function Send(){
-            var message = document.getElementById("message").value;
-            socket.send(message);
-            Print("SEND: " + message);
-        }
-        function Ping(){
-            socket.send("ping");
-            Print("SEND: " + "ping");
-        }
-        function Close(){
-            socket.close();
-        }
-        function Print(str){
-            var date = (new Date()).format("MM-dd hh:mm:ss.S");
-            str = date + "\n\t" + str;
-            var text = document.getElementById("textarea");
-            text.value = str + "\n" + text.value;
-        }
     </script>
 </head>
 <body >
@@ -87,7 +24,7 @@
 
 
 <hr color="green" width="800"/>
-<button id="debug" onclick="location.href='auth';">Debug Mode</button>
+<button id="debug" onclick="location.href='login';">Debug Mode</button>
 
 </body>
 </html>

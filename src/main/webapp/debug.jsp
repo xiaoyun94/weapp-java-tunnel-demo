@@ -90,11 +90,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
 <%
     if(request.getHeader("Authorization") == null){
-        response.setStatus(401);
-        response.setHeader("WWW-authenticate","Basic realm=\"呵呵\"");
-    }else{
-        //取得输入的信息
-
+        //response.setStatus(401);
+        //response.setHeader("WWW-authenticate","Basic realm=\"呵呵\"");
+        response.sendRedirect("/login");
     }
 %>
 <h2>微信小程序信道服务器DEMO DEBUG</h2>

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/weapptunnel.iml" filepath="$PROJECT_DIR$/weapptunnel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/weapptunnel.iml" filepath="$PROJECT_DIR$/.idea/weapptunnel.iml" />
     </modules>
   </component>
 </project>

@@ -98,9 +98,11 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
         //将session、放入到全局静态表中
         //System.out.println("连接建立"+tunnelId+","+tcId);
 
+        //如果当前存在相同的tunnelId，取出并且关闭
         if(sessionMap.containsKey(tunnelId)){
-            sessionMap.remove(tunnelId).close();
+            sessionMap.remove(tunnelId).close(CloseStatus.POLICY_VIOLATION);
         }
+        //放入新的tunnelId
         sessionMap.put(tunnelId, session);
 
         JSONObject json = buildMessageAndRequest(tunnelId, null, "connect", tcId);
@@ -118,7 +120,9 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
         String tcId = (String) session.getAttributes().get("tcId");
 
         //只删除自己的session
-        sessionMap.remove(tunnelId, session);
+        if(sessionMap.get(tunnelId)==session){
+            sessionMap.remove(tunnelId);
+        }
         JSONObject json = buildMessageAndRequest(tunnelId, null, "close", tcId);
         //System.out.println(json);
     }
@@ -167,7 +171,7 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
         if(session.isOpen()){
-            session.close();
+            session.close(CloseStatus.SERVER_ERROR);
         }
     }
 
@@ -179,7 +183,21 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
         return false;
     }
 
-
+    /**
+     * 关闭信道
+     * @param tunnelId
+     * @return
+     */
+    public boolean closeTunnelByTunnelId(String tunnelId) {
+        WebSocketSession session = sessionMap.get(tunnelId);
+        try {
+            session.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     /**
      * 给某个用户发送消息
      * @param tunnelId

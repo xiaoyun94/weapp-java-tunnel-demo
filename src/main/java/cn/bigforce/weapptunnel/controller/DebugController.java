@@ -16,9 +16,9 @@ import java.io.IOException;
 public class DebugController {
     @RequestMapping(value="login")
     public String login(HttpServletRequest request, HttpServletResponse response){
-        System.out.println("5555555555555555555555");
+
         String auth = request.getHeader("Authorization");
-        System.out.print(auth);
+        //System.out.print(auth);
         if(auth == null){
             response.setStatus(401);
             response.setHeader("WWW-authenticate","Basic realm=\"呵呵\"");

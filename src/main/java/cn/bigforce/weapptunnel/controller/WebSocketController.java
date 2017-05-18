@@ -48,10 +48,9 @@ public class WebSocketController {
             String data = response.toString();
             String signature = Hash.sha1(data + request.getTcKey());
             return new ResponseObject(data, signature);
-        }else{
-            // TODO 如果你想自定义格式的话，就补充这里
-            return new ResponseObject(2, "不支持的格式");
         }
+        return new ResponseObject(2, "不支持的格式");
+
     }
 
     @RequestMapping(value = "ws/push")
@@ -61,40 +60,47 @@ public class WebSocketController {
        if(hostConfig==null)
            return new ResponseObject(6, "你之前调用过get/wsurl吗?!");
 
+       request.setTcKey(hostConfig.getTcKey());
+
         //校验签名
-        if(!isSignatureValid(request.getSignature(), request.getData(), hostConfig.getTcKey()))
+        if(!isSignatureValid(request.getSignature(), request.getData(), request.getTcKey()))
             return new ResponseObject(1,"验证失败");
 
         if(request.getDataEncode()==null||"json".equals(request.getDataEncode())){
             JSONObject json = new JSONArray(request.getData()).getJSONObject(0);
 
-            /**
-             * 这个消息类型一定是message类型，就不用提取了
-             */
+            String type = json.getString("type");
             List tunnelIds = json.getJSONArray("tunnelIds").toList();
             String content = json.getString("content");
-
             SpringWebSocketHandler handler = new SpringWebSocketHandler();
 
-            JSONArray invalid = new JSONArray();
-            for (Object o: tunnelIds){
-                String tunnelId = (String) o;
-                boolean b = handler.sendMessageByTunnelId(tunnelId, content);
-                if(!b)
-                    invalid.put(tunnelId);
+            //如果消息类型是close
+            if("close".equals(type)){
+                for (Object o: tunnelIds){
+                    String tunnelId = (String) o;
+                    handler.closeTunnelByTunnelId(tunnelId);
+                }
+                return new ResponseObject(0, "关闭信道无任何返回值");
+            }//消息类型是message
+            else if("message".equals(type)){
+                JSONArray invalid = new JSONArray();
+
+                for (Object o: tunnelIds){
+                    String tunnelId = (String) o;
+                    boolean b = handler.sendMessageByTunnelId(tunnelId, content);
+                    if(!b)
+                        invalid.put(tunnelId);
+                }
+
+                JSONObject response = new JSONObject();
+                response.put("invalidTunnelIds", invalid);
+
+                String data = response.toString();
+                String signature = Hash.sha1(data + request.getTcKey());
+                return new ResponseObject(data, signature);
             }
-
-            JSONObject response = new JSONObject();
-            response.put("invalidTunnelIds", invalid);
-
-            String data = response.toString();
-            String signature = Hash.sha1(data + request.getTcKey());
-            return new ResponseObject(data, signature);
-
-        }else{
-            // TODO 如果你想自定义格式的话，就补充这里吧
-            return new ResponseObject(2, "不支持的格式");
         }
+        return new ResponseObject(2, "不支持的格式");
     }
 
 

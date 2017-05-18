@@ -9,8 +9,8 @@
         <module name="weapptunnel" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.8">
-      <module name="weapptunnel" target="1.8" />
+    <bytecodeTargetLevel>
+      <module name="weapptunnel" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

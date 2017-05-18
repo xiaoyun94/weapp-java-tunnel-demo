@@ -1,6 +1,71 @@
-<%@ page language="java" import="java.util.*,java.sql.*,javax.sql.*,javax.naming.*,sun.misc.*" contentType="text/html; charset=UTF-8" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: LAB520
+  Date: 2017/5/18
+  Time: 16:31
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <title>微信小程序信道服务器(第三方)DEMO - Java</title>
+    <style type="text/css">
+
+        ::selection { background-color: #E13300; color: white; }
+        ::-moz-selection { background-color: #E13300; color: white; }
+
+        body {
+            background-color: #fff;
+            margin: 40px;
+            font: 13px/20px normal Helvetica, Arial, sans-serif;
+            color: #4F5155;
+        }
+
+        a {
+            color: #003399;
+            background-color: transparent;
+            font-weight: normal;
+            text-decoration: none;
+        }
+
+
+        h1 {
+            color: #444;
+            background-color: transparent;
+            border-bottom: 1px solid #D0D0D0;
+            font-size: 19px;
+            font-weight: normal;
+            margin: 0 0 14px 0;
+            padding: 14px 0;
+        }
+
+        p.footer {
+            text-align: right;
+            font-size: 11px;
+            border-top: 1px solid #D0D0D0;
+            line-height: 32px;
+            padding: 0 10px 0 10px;
+            margin: 20px 0 0 0;
+        }
+        p.tip {
+            text-align: left;
+            font-size: 11px;
+            border-top: 1px solid #D0D0D0;
+            line-height: 32px;
+            padding: 0 10px 0 10px;
+            margin: 20px 0 0 0;
+        }
+
+        #container {
+            margin: 10px;
+            padding: 10px 20px;
+            border: 1px solid #D0D0D0;
+            box-shadow: 0 0 8px #D0D0D0;
+        }
+    </style>
+    <meta name="__hash__" content="6666cd76f96956469e7be39d750cc7d9_4f5dfaa532aeea74ecdd17151efeafb4" />
     <script>
         Date.prototype.format = function(fmt)
         { //author: meizz
@@ -82,12 +147,7 @@
         }
     </script>
 </head>
-<body >
-<title>Weapp Tunnel Server Demo debug</title>
-<style>
-    body{text-align:center}
-</style>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<body>
 <%
     if(request.getHeader("Authorization") == null){
         //response.setStatus(401);
@@ -95,19 +155,6 @@
         response.sendRedirect("/login");
     }
 %>
-<h2>微信小程序信道服务器DEMO DEBUG</h2>
-<table width="600" border="0" align="center">
-    <tr>
-        <td colspan="3">这是一个微信小程序的信道服务器demo，你现在或许已经部署到自己的服务器中。</td>
-    <tr>
-        <td><a color="green" href="https://github.com/xiaoyun94/weapp-java-tunnel-demo">Github for this demo</a></td>
-        <td><a color="green" href="https://www.bigforce.cn">Bigforce.cn</a></td>
-    </tr>
-</table>
-</br>
-
-
-<hr color="green" width="800"/>
 <%
     String schema = "ws";
     if(request.getScheme().equals("https")){
@@ -126,27 +173,31 @@
     schema += "/";
     schema += "websocket?debug=debug";
 %>
-<table width="300" border="0" align="center">
-    <tr>
-        <td colspan="3">Debug for WebSocket</td>
-    <tr>
-        <td>Link</td>
-        <td><input type="text" id="link" size="40" value="<%=schema%>"></td>
-    </tr>
-    <tr>
-        <td>Message</td>
-        <td><input type="text" id="message" size="40" value="我能吞下doge而不伤身体"></td>
-    </tr>
+<div id="container">
+    <h1>网页调试模式</h1>
+    <table width="300" border="0">
+        <tr>
+            <td colspan="3">Debug for WebSocket</td>
+        <tr>
+            <td>Link</td>
+            <td><input type="text" id="link" size="40" value="<%=schema%>"></td>
+        </tr>
+        <tr>
+            <td>Message</td>
+            <td><input type="text" id="message" size="40" value="我能吞下doge而不伤身体"></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <button id="connect" onclick="Connect();">Connect</button>
+                <button id="send" onclick="Send();">Send</button>
+                <button id="ping" onclick="Ping();">Ping</button>
+                <button id="close" onclick="Close();">Close</button>
+            </td>
+        </tr>
+    </table>
+    <textarea id="textarea" style="width:350px;height:400px;"></textarea>
+    <p class="tip">登陆成功后才可能使用调试模式！</p>
 
-</table>
-
-<button id="connect" onclick="Connect();">Connect</button>
-<button id="send" onclick="Send();">Send</button>
-<button id="ping" onclick="Ping();">Ping</button>
-<button id="close" onclick="Close();">Close</button>
-</br>
-<textarea id="textarea" style="width:400px;height:400px;"></textarea>
-</br>
-登陆成功后才可能使用调试模式！
+</div>
 </body>
 </html>

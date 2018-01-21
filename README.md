@@ -4,6 +4,8 @@
 这是提供了一个微信小程序的信道服务器demo，你可以将它部署到自己的服务器中，不再受腾讯云的限制并可以自行维护。<br>
 该项目是由java语言编写，IDE为IDEA Intellij，使用了spring框架下的web，message，websocket等模块，由maven控制项目依赖
 
+###2018/1/21提示：小程序SDK已经迭代好几个版本了，我很早就不开发小程序了，当前项目是否仍旧可用是否兼容无法保证，请知悉
+
 ## 最低环境
 - Apache Tomcat 7.0，从该版本才开始引入了Websocket
 - JDK1.7，Websocket 是servlet 3.1的技术，JDK7才提供实现
